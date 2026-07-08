@@ -216,3 +216,17 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Node/Frontend dependencies
+node_modules/
+dist/
+build/
+
+# Python dependencies
+__pycache__/
+*.py[cod]
+venv/
+env/
+
+# Environment variables (NEVER commit this!)
+.env
