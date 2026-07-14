@@ -7,9 +7,11 @@ This project tracks active rental listings across specific zip codes. It consist
 ## Local Setup
 
 Create a `.env` file in your project root and add your connection strings and API keys:
-```env```
+```env
+
 RENTCAST_API_KEY=your_rentcast_key_here
-DATABASE_URL=your_neon_postgres_connection_string_here
+
+DATABASE_URL=your_neon_postgres_connection_string_here```
 
 # Install required Python packages
 pip install requests psycopg2-binary python-dotenv
