@@ -22,9 +22,9 @@ def fetch_and_store_listings():
     zip_codes = cursor.fetchall()
 
     for zip_id, zip_code in zip_codes:
-        print(f"Fetching active listings for {zip_code}...")
+        print(f"Fetching active listings for {zip_code}")
 
-        # New API Endpoint: Limits to 500 active listings per zip code
+        # Limits to 500 active listings per zip code
         url = f"https://api.rentcast.io/v1/listings/rental/long-term?zipCode={zip_code}&status=Active&limit=500"
         headers = {"accept": "application/json", "X-Api-Key": API_KEY}
 
@@ -46,7 +46,6 @@ def fetch_and_store_listings():
                     last_seen_date = EXCLUDED.last_seen_date;
             """
 
-            # Loop through the JSON array and insert/update each listing
             for item in listings:
                 listing_id = item.get("id")
                 address = item.get("formattedAddress")
@@ -57,7 +56,6 @@ def fetch_and_store_listings():
                 price = item.get("price")
                 dom = item.get("daysOnMarket")
 
-                # Only save if we have the critical data
                 if listing_id and price:
                     cursor.execute(
                         insert_query,
@@ -80,7 +78,6 @@ def fetch_and_store_listings():
         else:
             print(f"API Error for {zip_code}: {response.status_code} - {response.text}")
 
-    # Commit changes and close
     conn.commit()
     cursor.close()
     conn.close()

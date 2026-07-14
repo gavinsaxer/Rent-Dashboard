@@ -22,12 +22,10 @@ app.add_middleware(
 
 
 def get_db_connection():
-    # RealDictCursor returns rows as Python dictionaries instead of tuples.
-    # This automatically maps perfectly to JSON formats for our frontend.
     return psycopg2.connect(DB_URL, cursor_factory=RealDictCursor)
 
 
-# Endpoint 1: Fetch all locations currently being tracked
+# Fetch all locations currently being tracked
 @app.get("/api/locations")
 def get_locations():
     try:
@@ -42,14 +40,13 @@ def get_locations():
         raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
 
 
-# Endpoint 2: Fetch all active listings for a specific zip code
+# Fetch all active listings for a specific zip code
 @app.get("/api/listings/{zip_code}")
 def get_listings(zip_code: str):
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
 
-        # SQL Join query to grab all apartment details, sorted by price
         query = """
             SELECT al.id, al.address, al.property_type, al.bedrooms, 
                    al.bathrooms, al.square_footage, al.price, al.days_on_market, al.last_seen_date
