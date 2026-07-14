@@ -10,7 +10,6 @@ Create a `.env` file in your project root and add your connection strings and AP
 ```env
 
 RENTCAST_API_KEY=your_rentcast_key_here
-
 DATABASE_URL=your_neon_postgres_connection_string_here
 
 # Install required Python packages
